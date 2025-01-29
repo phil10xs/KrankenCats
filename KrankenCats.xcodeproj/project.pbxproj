@@ -14,6 +14,8 @@
 		22F52E6D2D4A71B100ED4EB5 /* KrankenCatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E6C2D4A71B100ED4EB5 /* KrankenCatsTests.swift */; };
 		22F52E772D4A71B100ED4EB5 /* KrankenCatsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E762D4A71B100ED4EB5 /* KrankenCatsUITests.swift */; };
 		22F52E792D4A71B100ED4EB5 /* KrankenCatsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E782D4A71B100ED4EB5 /* KrankenCatsUITestsLaunchTests.swift */; };
+		22F52E872D4A7E0F00ED4EB5 /* breeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 22F52E862D4A7E0F00ED4EB5 /* breeds.json */; };
+		22F52E8A2D4A7E6A00ED4EB5 /* selected_breed.json in Resources */ = {isa = PBXBuildFile; fileRef = 22F52E892D4A7E6A00ED4EB5 /* selected_breed.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		22F52E722D4A71B100ED4EB5 /* KrankenCatsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KrankenCatsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F52E762D4A71B100ED4EB5 /* KrankenCatsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrankenCatsUITests.swift; sourceTree = "<group>"; };
 		22F52E782D4A71B100ED4EB5 /* KrankenCatsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrankenCatsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		22F52E862D4A7E0F00ED4EB5 /* breeds.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = breeds.json; sourceTree = "<group>"; };
+		22F52E892D4A7E6A00ED4EB5 /* selected_breed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = selected_breed.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 		22F52E5A2D4A71AF00ED4EB5 /* KrankenCats */ = {
 			isa = PBXGroup;
 			children = (
+				22F52E852D4A7DC900ED4EB5 /* Mocks */,
 				22F52E5B2D4A71AF00ED4EB5 /* KrankenCatsApp.swift */,
 				22F52E5D2D4A71AF00ED4EB5 /* ContentView.swift */,
 				22F52E5F2D4A71B100ED4EB5 /* Assets.xcassets */,
@@ -125,6 +130,15 @@
 				22F52E782D4A71B100ED4EB5 /* KrankenCatsUITestsLaunchTests.swift */,
 			);
 			path = KrankenCatsUITests;
+			sourceTree = "<group>";
+		};
+		22F52E852D4A7DC900ED4EB5 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				22F52E862D4A7E0F00ED4EB5 /* breeds.json */,
+				22F52E892D4A7E6A00ED4EB5 /* selected_breed.json */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +246,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F52E632D4A71B100ED4EB5 /* Preview Assets.xcassets in Resources */,
+				22F52E8A2D4A7E6A00ED4EB5 /* selected_breed.json in Resources */,
+				22F52E872D4A7E0F00ED4EB5 /* breeds.json in Resources */,
 				22F52E602D4A71B100ED4EB5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
