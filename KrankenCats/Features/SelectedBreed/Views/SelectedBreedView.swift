@@ -25,13 +25,8 @@ struct SelectedBreedView: View {
                         LazyVGrid(columns: columns,
                                   spacing: 16) {
                             ForEach(vm.selectedBreedImageResponse?.breedImages ?? [], id: \.id) { breedImage in
-                                NavigationLink {
-//                                    SelectedBreedView(breedId: breed.id)
-                                } label: {
-                                    SingleBreedImageView(breedImage: breedImage)
-                                        .accessibilityIdentifier("item_\(breedImage.id)")
-                                       
-                                }
+                                SingleBreedImageView(breedImage: breedImage)
+                                    .accessibilityIdentifier("item_\(breedImage.id)")
                             }
                         }
                                   .padding()
@@ -48,7 +43,8 @@ struct SelectedBreedView: View {
                 }
             }
         }
-        .navigationTitle("Breeds")
+        .navigationTitle("Breed Details")
+        .navigationBarTitleDisplayMode(.inline)
         .task {
             if !hasAppeared {
                 await vm.fetchSelectedBreedImages()
@@ -63,12 +59,11 @@ private extension SelectedBreedView {
         Theme.background
             .ignoresSafeArea(edges: .top)
     }
-
     
     var refresh: some View {
         Button {
             Task {
-             
+                
             }
         } label: {
             Symbols.refresh

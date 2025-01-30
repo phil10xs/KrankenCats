@@ -15,7 +15,6 @@ struct SingleBreedView: View {
     
     var body: some View {
         VStack(spacing: .zero) {
-            
             AsyncImage(url: .init(string: breed.image?.url ?? "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg")) { image in
                 image
                     .resizable()

@@ -195,8 +195,8 @@
 		22F52E8B2D4A82FD00ED4EB5 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				22F52E8F2D4A844B00ED4EB5 /* SelectedBreed */,
 				22F52E8E2D4A843300ED4EB5 /* Breeds */,
+				22F52E8F2D4A844B00ED4EB5 /* SelectedBreed */,
 			);
 			path = Features;
 			sourceTree = "<group>";

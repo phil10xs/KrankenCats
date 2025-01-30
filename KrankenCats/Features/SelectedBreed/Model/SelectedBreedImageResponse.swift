@@ -11,7 +11,6 @@ struct SelectedBreedImageResponse: Codable, Equatable {
     let breedImages: [BreedImage]
 }
 
-
 struct BreedImage: Codable, Equatable {
     let id: String
     let url: String

@@ -27,7 +27,7 @@ struct BreedsView: View {
                                       spacing: 16) {
                                 ForEach(vm.breedsResponse?.breeds ?? [], id: \.id) { breed in
                                     NavigationLink {
-                                        SelectedBreedView(vm:  .init())
+                                        SelectedBreedView(vm: .init(breedId: breed.id))
                                     } label: {
                                         SingleBreedView(breed: breed)
                                             .accessibilityIdentifier("item_\(breed.id)")
@@ -61,18 +61,14 @@ struct BreedsView: View {
                 }
             }
         }
-        
     }
-    
 }
-
 
 private extension BreedsView {
     var background: some View {
         Theme.background
             .ignoresSafeArea(edges: .top)
     }
-
     
     var refresh: some View {
         Button {
