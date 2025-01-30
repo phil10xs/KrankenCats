@@ -31,11 +31,11 @@ struct BreedsView: View {
                                     } label: {
                                         SingleBreedView(breed: breed)
                                             .accessibilityIdentifier("item_\(breed.id)")
-                                            .task {
-                                                if vm.hasReachedEnd(of: breed) && !vm.isFetching {
-                                                    await vm.fetchNextSetOfCatBreeds()
-                                                }
-                                            }
+//                                            .task {
+//                                                if vm.hasReachedEnd(of: breed) && !vm.isFetching {
+//                                                    await vm.fetchNextSetOfCatBreeds()
+//                                                }
+//                                            }
                                     }
                                 }
                             }
@@ -53,14 +53,15 @@ struct BreedsView: View {
                     }
                 }
             }
-        }
-        .navigationTitle("Breeds")
-        .task {
-            if !hasAppeared {
-                await vm.fetchCatBreeds()
-                hasAppeared = true
+            .navigationTitle("Breeds")
+            .task {
+                if !hasAppeared {
+                    await vm.fetchCatBreeds()
+                    hasAppeared = true
+                }
             }
         }
+        
     }
     
 }

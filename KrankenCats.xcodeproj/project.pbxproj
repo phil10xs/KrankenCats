@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		228FEA2C2D4C0DC000C6B72A /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA2B2D4C0DC000C6B72A /* NetworkingManager.swift */; };
+		228FEA2E2D4C0DCD00C6B72A /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA2D2D4C0DCD00C6B72A /* EndPoint.swift */; };
+		228FEA302D4C197700C6B72A /* ApiEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA2F2D4C197700C6B72A /* ApiEnvironment.swift */; };
 		22F52E5C2D4A71AF00ED4EB5 /* KrankenCatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E5B2D4A71AF00ED4EB5 /* KrankenCatsApp.swift */; };
 		22F52E5E2D4A71AF00ED4EB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E5D2D4A71AF00ED4EB5 /* ContentView.swift */; };
 		22F52E602D4A71B100ED4EB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22F52E5F2D4A71B100ED4EB5 /* Assets.xcassets */; };
@@ -17,7 +20,6 @@
 		22F52E872D4A7E0F00ED4EB5 /* breeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 22F52E862D4A7E0F00ED4EB5 /* breeds.json */; };
 		22F52E8A2D4A7E6A00ED4EB5 /* selected_breed.json in Resources */ = {isa = PBXBuildFile; fileRef = 22F52E892D4A7E6A00ED4EB5 /* selected_breed.json */; };
 		22F52E972D4A854600ED4EB5 /* BreedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E962D4A854600ED4EB5 /* BreedsView.swift */; };
-		22F52E992D4A85A600ED4EB5 /* BreedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E982D4A85A600ED4EB5 /* BreedService.swift */; };
 		22F52E9B2D4A88E400ED4EB5 /* BreedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E9A2D4A88E400ED4EB5 /* BreedViewModel.swift */; };
 		22F52E9D2D4A89AD00ED4EB5 /* BreedsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E9C2D4A89AD00ED4EB5 /* BreedsResponse.swift */; };
 		22F52E9F2D4A99BB00ED4EB5 /* SingleBreedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E9E2D4A99BB00ED4EB5 /* SingleBreedView.swift */; };
@@ -49,6 +51,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		228FEA2B2D4C0DC000C6B72A /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
+		228FEA2D2D4C0DCD00C6B72A /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		228FEA2F2D4C197700C6B72A /* ApiEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEnvironment.swift; sourceTree = "<group>"; };
 		22F52E582D4A71AF00ED4EB5 /* KrankenCats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KrankenCats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F52E5B2D4A71AF00ED4EB5 /* KrankenCatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrankenCatsApp.swift; sourceTree = "<group>"; };
 		22F52E5D2D4A71AF00ED4EB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,7 +67,6 @@
 		22F52E862D4A7E0F00ED4EB5 /* breeds.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = breeds.json; sourceTree = "<group>"; };
 		22F52E892D4A7E6A00ED4EB5 /* selected_breed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = selected_breed.json; sourceTree = "<group>"; };
 		22F52E962D4A854600ED4EB5 /* BreedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsView.swift; sourceTree = "<group>"; };
-		22F52E982D4A85A600ED4EB5 /* BreedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedService.swift; sourceTree = "<group>"; };
 		22F52E9A2D4A88E400ED4EB5 /* BreedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedViewModel.swift; sourceTree = "<group>"; };
 		22F52E9C2D4A89AD00ED4EB5 /* BreedsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsResponse.swift; sourceTree = "<group>"; };
 		22F52E9E2D4A99BB00ED4EB5 /* SingleBreedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBreedView.swift; sourceTree = "<group>"; };
@@ -101,6 +105,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		228FEA292D4C0D5F00C6B72A /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				228FEA2A2D4C0D9100C6B72A /* API */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		228FEA2A2D4C0D9100C6B72A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				228FEA2B2D4C0DC000C6B72A /* NetworkingManager.swift */,
+				228FEA2D2D4C0DCD00C6B72A /* EndPoint.swift */,
+				228FEA2F2D4C197700C6B72A /* ApiEnvironment.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		22F52E4F2D4A71AE00ED4EB5 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +146,7 @@
 		22F52E5A2D4A71AF00ED4EB5 /* KrankenCats */ = {
 			isa = PBXGroup;
 			children = (
+				228FEA292D4C0D5F00C6B72A /* Core */,
 				22F52E8D2D4A832800ED4EB5 /* Resources */,
 				22F52E8C2D4A831000ED4EB5 /* Common */,
 				22F52E8B2D4A82FD00ED4EB5 /* Features */,
@@ -228,7 +251,6 @@
 		22F52E912D4A848600ED4EB5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				22F52E982D4A85A600ED4EB5 /* BreedService.swift */,
 				22F52E9A2D4A88E400ED4EB5 /* BreedViewModel.swift */,
 			);
 			path = ViewModel;
@@ -429,13 +451,15 @@
 				22F52EA42D4AA23900ED4EB5 /* Symbols.swift in Sources */,
 				22F52E9B2D4A88E400ED4EB5 /* BreedViewModel.swift in Sources */,
 				22F52EB22D4C004600ED4EB5 /* SingleBreedImageView.swift in Sources */,
-				22F52E992D4A85A600ED4EB5 /* BreedService.swift in Sources */,
+				228FEA2E2D4C0DCD00C6B72A /* EndPoint.swift in Sources */,
+				228FEA2C2D4C0DC000C6B72A /* NetworkingManager.swift in Sources */,
 				22F52E9F2D4A99BB00ED4EB5 /* SingleBreedView.swift in Sources */,
 				22F52E5E2D4A71AF00ED4EB5 /* ContentView.swift in Sources */,
 				22F52E9D2D4A89AD00ED4EB5 /* BreedsResponse.swift in Sources */,
 				22F52EA12D4A9D2B00ED4EB5 /* CatNumberView.swift in Sources */,
 				22F52EA62D4AA64600ED4EB5 /* Theme.swift in Sources */,
 				22F52EA82D4AA77700ED4EB5 /* SelectedBreedView.swift in Sources */,
+				228FEA302D4C197700C6B72A /* ApiEnvironment.swift in Sources */,
 				22F52E5C2D4A71AF00ED4EB5 /* KrankenCatsApp.swift in Sources */,
 				22F52EB02D4BF3FB00ED4EB5 /* SelectedBreedViewModel.swift in Sources */,
 				22F52E972D4A854600ED4EB5 /* BreedsView.swift in Sources */,

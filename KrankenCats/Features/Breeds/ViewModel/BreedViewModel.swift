@@ -7,16 +7,21 @@
 
 import Foundation
 
-final class BreedsViewModel: ObservableObject {
+final class BreedsViewModel: ObservableObject {    
     
-    @Published private(set) var breedsResponse:  BreedsResponse?
+    // MARK: - Properties
+    
+    @Published private(set) var breedsResponse: BreedsResponse?
+    
     @Published var hasError = false
+    
+    @Published private(set) var error: NetworkingManager.NetworkingError?
+    
     @Published private(set) var viewState: ViewState?
     
-    private(set) var page = 1
-    private(set) var totalPages: Int?
+    private(set) var page = 0
     
-    
+    private let networkingManager: NetworkingManagerImpl!
     
     var isLoading: Bool {
         viewState == .loading
@@ -26,54 +31,57 @@ final class BreedsViewModel: ObservableObject {
         viewState == .fetching
     }
     
+    // MARK: - Initializer
+    
+    init(networkingManager: NetworkingManagerImpl = NetworkingManager.shared) {
+        self.networkingManager = networkingManager
+    }
+    
+    // MARK: - Internal Methods
     
     @MainActor
-    func fetchCatBreeds() async {
-        reset()
+    internal func fetchCatBreeds() async {
         viewState = .loading
         defer { viewState = .finished }
-        let breeds = try! StaticJSONMapper.decode(file: "breeds",
-                                                               type: [Breed].self);
-        self.breedsResponse = BreedsResponse(breeds: breeds)
+        do {
+            let response = try await networkingManager.request(session: .shared,
+                                                               .breeds(page: page),
+                                                               type: [Breed].self)
+            self.breedsResponse = BreedsResponse(breeds: response)
+        } catch {
+            self.hasError = true
+            if let networkingError = error as? NetworkingManager.NetworkingError {
+                self.error = networkingError
+            } else {
+                self.error = .custom(error: error)
+            }
+        }
     }
     
     @MainActor
-    func fetchNextSetOfCatBreeds() async {
+    internal func fetchNextSetOfCatBreeds() async {
         
-        guard page != totalPages else { return }
         viewState = .fetching
         defer { viewState = .finished }
         
         page += 1
         let breeds = try! StaticJSONMapper.decode(file: "breeds",
-                                                               type: [Breed].self);
+                                                  type: [Breed].self);
         self.breedsResponse = BreedsResponse(breeds: breeds)
     }
     
-    func hasReachedEnd(of breed: Breed) -> Bool {
+    internal func hasReachedEnd(of breed: Breed) -> Bool {
         breedsResponse?.breeds .last?.id == breed.id
     }
 }
+
+// MARK: - State Enum
+
+extension BreedsViewModel {
     
-    
-    extension BreedsViewModel {
-        enum ViewState {
-            case fetching
-            case loading
-            case finished
-        }
+    enum ViewState {
+        case fetching
+        case loading
+        case finished
     }
-
-    private extension BreedsViewModel {
-        func reset() {
-            if viewState == .finished {
-                breedsResponse = BreedsResponse(breeds: [])
-                page = 1
-                totalPages = nil
-                viewState = nil
-            }
-        }
-    }
-
-    
-
+}
