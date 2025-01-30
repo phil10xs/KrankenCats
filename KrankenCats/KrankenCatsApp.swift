@@ -11,7 +11,16 @@ import SwiftUI
 struct KrankenCatsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+                  BreedsView(vm:BreedsViewModel())
         }
+    }
+}
+
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+      
+        return true
     }
 }
