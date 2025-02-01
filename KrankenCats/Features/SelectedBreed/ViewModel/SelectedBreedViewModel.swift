@@ -12,7 +12,11 @@ final class  SelectedBreedViewModel: ObservableObject {
     
     // MARK: - Properties
     
-    @Published private(set) var  selectedBreedImageResponse:  SelectedBreedImageResponse?
+    private(set) var  selectedBreedImageResponse:  SelectedBreedImageResponse?
+    
+    @Published private(set) var  selectedBreed:  Breed?
+    
+    @Published private(set) var breedImages = [BreedImage]()
     
     @Published var hasError = false
     
@@ -42,7 +46,6 @@ final class  SelectedBreedViewModel: ObservableObject {
     }
     
     // MARK: - Internal Methods
-    
     @MainActor
     internal func fetchSelectedBreedImages() async {
         viewState = .loading
@@ -52,6 +55,7 @@ final class  SelectedBreedViewModel: ObservableObject {
                                                                .images(breedIds: self.breedId, page: page),
                                                                type: [BreedImage].self)
             self.selectedBreedImageResponse = SelectedBreedImageResponse(breedImages: response)
+            self.breedImages = self.selectedBreedImageResponse?.breedImages ?? []
         } catch {
             self.hasError = true
             if let networkingError = error as? NetworkingManager.NetworkingError {
@@ -61,6 +65,52 @@ final class  SelectedBreedViewModel: ObservableObject {
             }
         }
     }
+    
+    // MARK: - Internal Methods
+    @MainActor
+    internal func fetchSelectedBreed() async {
+        viewState = .loading
+        defer { viewState = .finished }
+        do {
+            let response = try await networkingManager.request(session: .shared,
+                                                               .selectedBreed(breedId: self.breedId),
+                                                               type: Breed.self)
+            self.selectedBreed = response
+            
+        } catch {
+            self.hasError = true
+            if let networkingError = error as? NetworkingManager.NetworkingError {
+                self.error = networkingError
+            } else {
+                self.error = .custom(error: error)
+            }
+        }
+    }
+    
+    @MainActor
+       internal func fetchNextSelectedBreedImages() async {
+           viewState = .loading
+           defer { viewState = .finished }
+           page += 1
+           do {
+               let response = try await networkingManager.request(session: .shared,
+                                                                  .images(breedIds: self.breedId, page: page),
+                                                                  type: [BreedImage].self)
+               self.selectedBreedImageResponse = SelectedBreedImageResponse(breedImages: response)
+               self.breedImages += self.selectedBreedImageResponse?.breedImages ?? []
+           } catch {
+               self.hasError = true
+               if let networkingError = error as? NetworkingManager.NetworkingError {
+                   self.error = networkingError
+               } else {
+                   self.error = .custom(error: error)
+               }
+           }
+       }
+      
+    func hasReachedEnd(of breedImage: BreedImage) -> Bool {
+        selectedBreedImageResponse?.breedImages.last?.id == breedImage.id
+       }
 }
 
 

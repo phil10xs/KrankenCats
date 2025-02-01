@@ -11,29 +11,29 @@ struct BreedsView: View {
     
     private let columns = Array(repeating: GridItem(.flexible()),
                                 count: 2)
-    @ObservedObject var vm: BreedsViewModel
+    @ObservedObject var viewModel: BreedsViewModel
     @State private var hasAppeared = false
     
     var body: some View {
         NavigationView{
             ZStack {
                 background
-                if vm.isLoading {
+                if viewModel.isLoading {
                     ProgressView()
                 } else {
                     ScrollView {
                         VStack{
                             LazyVGrid(columns: columns,
                                       spacing: 16) {
-                                ForEach(vm.breeds, id: \.id) { breed in
+                                ForEach(viewModel.breeds, id: \.id) { breed in
                                     NavigationLink {
-                                        SelectedBreedView(vm: .init(breedId: breed.id))
+                                        SelectedBreedView(viewModel: .init(breedId: breed.id))
                                     } label: {
                                         SingleBreedView(breed: breed)
                                             .accessibilityIdentifier("item_\(breed.id)")
                                             .task {
-                                                if vm.hasReachedEnd(of: breed) && !vm.isFetching {
-                                                    await vm.fetchNextSetOfCatBreeds()
+                                                if viewModel.hasReachedEnd(of: breed) && !viewModel.isFetching {
+                                                    await viewModel.fetchNextSetOfCatBreeds()
                                                 }
                                             }
                                     }
@@ -44,10 +44,10 @@ struct BreedsView: View {
                         }
                     }
                     .refreshable {
-                        await vm.fetchCatBreeds();
+                        await viewModel.fetchCatBreeds();
                     }
                     .overlay(alignment: .bottom) {
-                        if vm.isFetching {
+                        if viewModel.isFetching {
                             ProgressView()
                         }
                     }
@@ -56,7 +56,7 @@ struct BreedsView: View {
             .navigationTitle("Breeds")
             .task {
                 if !hasAppeared {
-                    await vm.fetchCatBreeds()
+                    await viewModel.fetchCatBreeds()
                     hasAppeared = true
                 }
             }
@@ -78,6 +78,6 @@ private extension BreedsView {
         } label: {
             Symbols.refresh
         }
-        .disabled(vm.isLoading)
+        .disabled(viewModel.isLoading)
     }
 }

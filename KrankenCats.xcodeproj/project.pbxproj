@@ -10,6 +10,11 @@
 		228FEA2C2D4C0DC000C6B72A /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA2B2D4C0DC000C6B72A /* NetworkingManager.swift */; };
 		228FEA2E2D4C0DCD00C6B72A /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA2D2D4C0DCD00C6B72A /* EndPoint.swift */; };
 		228FEA302D4C197700C6B72A /* ApiEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA2F2D4C197700C6B72A /* ApiEnvironment.swift */; };
+		228FEA322D4E79CB00C6B72A /* single_breed.json in Resources */ = {isa = PBXBuildFile; fileRef = 228FEA312D4E79CB00C6B72A /* single_breed.json */; };
+		228FEA342D4E856E00C6B72A /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA332D4E856E00C6B72A /* DetailView.swift */; };
+		228FEA382D4EA57500C6B72A /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA372D4EA57500C6B72A /* CacheManager.swift */; };
+		228FEA3A2D4EA58800C6B72A /* CachedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA392D4EA58800C6B72A /* CachedData.swift */; };
+		228FEA3C2D4EA5B600C6B72A /* CacheableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228FEA3B2D4EA5B600C6B72A /* CacheableViewModel.swift */; };
 		22F52E5C2D4A71AF00ED4EB5 /* KrankenCatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E5B2D4A71AF00ED4EB5 /* KrankenCatsApp.swift */; };
 		22F52E5E2D4A71AF00ED4EB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52E5D2D4A71AF00ED4EB5 /* ContentView.swift */; };
 		22F52E602D4A71B100ED4EB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22F52E5F2D4A71B100ED4EB5 /* Assets.xcassets */; };
@@ -54,6 +59,11 @@
 		228FEA2B2D4C0DC000C6B72A /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		228FEA2D2D4C0DCD00C6B72A /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		228FEA2F2D4C197700C6B72A /* ApiEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEnvironment.swift; sourceTree = "<group>"; };
+		228FEA312D4E79CB00C6B72A /* single_breed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = single_breed.json; sourceTree = "<group>"; };
+		228FEA332D4E856E00C6B72A /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		228FEA372D4EA57500C6B72A /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		228FEA392D4EA58800C6B72A /* CachedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedData.swift; sourceTree = "<group>"; };
+		228FEA3B2D4EA5B600C6B72A /* CacheableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableViewModel.swift; sourceTree = "<group>"; };
 		22F52E582D4A71AF00ED4EB5 /* KrankenCats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KrankenCats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F52E5B2D4A71AF00ED4EB5 /* KrankenCatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrankenCatsApp.swift; sourceTree = "<group>"; };
 		22F52E5D2D4A71AF00ED4EB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -123,6 +133,16 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		228FEA352D4EA51F00C6B72A /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				228FEA372D4EA57500C6B72A /* CacheManager.swift */,
+				228FEA392D4EA58800C6B72A /* CachedData.swift */,
+				228FEA3B2D4EA5B600C6B72A /* CacheableViewModel.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		22F52E4F2D4A71AE00ED4EB5 = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +166,7 @@
 		22F52E5A2D4A71AF00ED4EB5 /* KrankenCats */ = {
 			isa = PBXGroup;
 			children = (
+				228FEA352D4EA51F00C6B72A /* Cache */,
 				228FEA292D4C0D5F00C6B72A /* Core */,
 				22F52E8D2D4A832800ED4EB5 /* Resources */,
 				22F52E8C2D4A831000ED4EB5 /* Common */,
@@ -188,6 +209,7 @@
 			children = (
 				22F52E862D4A7E0F00ED4EB5 /* breeds.json */,
 				22F52E892D4A7E6A00ED4EB5 /* selected_breed.json */,
+				228FEA312D4E79CB00C6B72A /* single_breed.json */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -269,6 +291,7 @@
 			children = (
 				22F52EA72D4AA77700ED4EB5 /* SelectedBreedView.swift */,
 				22F52EB12D4C004600ED4EB5 /* SingleBreedImageView.swift */,
+				228FEA332D4E856E00C6B72A /* DetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -421,6 +444,7 @@
 				22F52E632D4A71B100ED4EB5 /* Preview Assets.xcassets in Resources */,
 				22F52E8A2D4A7E6A00ED4EB5 /* selected_breed.json in Resources */,
 				22F52E872D4A7E0F00ED4EB5 /* breeds.json in Resources */,
+				228FEA322D4E79CB00C6B72A /* single_breed.json in Resources */,
 				22F52E602D4A71B100ED4EB5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -447,6 +471,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F52EAC2D4AA9A200ED4EB5 /* StaticJsonMapper.swift in Sources */,
+				228FEA3A2D4EA58800C6B72A /* CachedData.swift in Sources */,
+				228FEA342D4E856E00C6B72A /* DetailView.swift in Sources */,
 				22F52EAE2D4BF31800ED4EB5 /* SelectedBreedImageResponse.swift in Sources */,
 				22F52EA42D4AA23900ED4EB5 /* Symbols.swift in Sources */,
 				22F52E9B2D4A88E400ED4EB5 /* BreedViewModel.swift in Sources */,
@@ -458,8 +484,10 @@
 				22F52E9D2D4A89AD00ED4EB5 /* BreedsResponse.swift in Sources */,
 				22F52EA12D4A9D2B00ED4EB5 /* CatNumberView.swift in Sources */,
 				22F52EA62D4AA64600ED4EB5 /* Theme.swift in Sources */,
+				228FEA382D4EA57500C6B72A /* CacheManager.swift in Sources */,
 				22F52EA82D4AA77700ED4EB5 /* SelectedBreedView.swift in Sources */,
 				228FEA302D4C197700C6B72A /* ApiEnvironment.swift in Sources */,
+				228FEA3C2D4EA5B600C6B72A /* CacheableViewModel.swift in Sources */,
 				22F52E5C2D4A71AF00ED4EB5 /* KrankenCatsApp.swift in Sources */,
 				22F52EB02D4BF3FB00ED4EB5 /* SelectedBreedViewModel.swift in Sources */,
 				22F52E972D4A854600ED4EB5 /* BreedsView.swift in Sources */,

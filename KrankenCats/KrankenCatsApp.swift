@@ -11,7 +11,7 @@ import SwiftUI
 struct KrankenCatsApp: App {
     var body: some Scene {
         WindowGroup {
-                  BreedsView(vm:BreedsViewModel())
+                  BreedsView(viewModel:BreedsViewModel())
         }
     }
 }
