@@ -7,11 +7,13 @@
 
 import Foundation
 
-final class BreedsViewModel: ObservableObject {    
+final class BreedsViewModel: ObservableObject {
     
     // MARK: - Properties
     
-    @Published private(set) var breedsResponse: BreedsResponse?
+    private(set) var breedsResponse: BreedsResponse?
+    
+    @Published private(set) var breeds: [Breed] = []
     
     @Published var hasError = false
     
@@ -48,6 +50,7 @@ final class BreedsViewModel: ObservableObject {
                                                                .breeds(page: page),
                                                                type: [Breed].self)
             self.breedsResponse = BreedsResponse(breeds: response)
+            self.breeds = breedsResponse?.breeds ?? []
         } catch {
             self.hasError = true
             if let networkingError = error as? NetworkingManager.NetworkingError {
@@ -65,13 +68,24 @@ final class BreedsViewModel: ObservableObject {
         defer { viewState = .finished }
         
         page += 1
-        let breeds = try! StaticJSONMapper.decode(file: "breeds",
-                                                  type: [Breed].self);
-        self.breedsResponse = BreedsResponse(breeds: breeds)
+        do {
+            let response = try await networkingManager.request(session: .shared,
+                                                               .breeds(page: page),
+                                                               type: [Breed].self)
+            self.breedsResponse = BreedsResponse(breeds: response)
+            self.breeds += breedsResponse?.breeds ?? []
+        } catch {
+            self.hasError = true
+            if let networkingError = error as? NetworkingManager.NetworkingError {
+                self.error = networkingError
+            } else {
+                self.error = .custom(error: error)
+            }
+        }
     }
     
     internal func hasReachedEnd(of breed: Breed) -> Bool {
-        breedsResponse?.breeds .last?.id == breed.id
+        breedsResponse?.breeds.last?.id == breed.id
     }
 }
 

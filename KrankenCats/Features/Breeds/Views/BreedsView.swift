@@ -25,22 +25,22 @@ struct BreedsView: View {
                         VStack{
                             LazyVGrid(columns: columns,
                                       spacing: 16) {
-                                ForEach(vm.breedsResponse?.breeds ?? [], id: \.id) { breed in
+                                ForEach(vm.breeds, id: \.id) { breed in
                                     NavigationLink {
                                         SelectedBreedView(vm: .init(breedId: breed.id))
                                     } label: {
                                         SingleBreedView(breed: breed)
                                             .accessibilityIdentifier("item_\(breed.id)")
-//                                            .task {
-//                                                if vm.hasReachedEnd(of: breed) && !vm.isFetching {
-//                                                    await vm.fetchNextSetOfCatBreeds()
-//                                                }
-//                                            }
+                                            .task {
+                                                if vm.hasReachedEnd(of: breed) && !vm.isFetching {
+                                                    await vm.fetchNextSetOfCatBreeds()
+                                                }
+                                            }
                                     }
                                 }
                             }
                                       .padding()
-                                      .accessibilityIdentifier("peopleGrid")
+                                      .accessibilityIdentifier("BreedGrid")
                         }
                     }
                     .refreshable {
