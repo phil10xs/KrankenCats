@@ -7,42 +7,32 @@
 
 import Foundation
 
-
-final class  SelectedBreedViewModel: ObservableObject {
+final class SelectedBreedViewModel: CacheableViewModel, Cacheable {
+    // MARK: - Type Alias
+    typealias T = [BreedImage]
     
     // MARK: - Properties
-    
-    private(set) var  selectedBreedImageResponse:  SelectedBreedImageResponse?
-    
-    @Published private(set) var  selectedBreed:  Breed?
-    
+    private(set) var selectedBreedImageResponse: SelectedBreedImageResponse?
+    @Published private(set) var selectedBreed: Breed?
     @Published private(set) var breedImages = [BreedImage]()
-    
-    @Published var hasError = false
-    
-    @Published private(set) var error: NetworkingManager.NetworkingError?
-    
-    @Published private(set) var viewState: ViewState?
-    
     private(set) var page = 0
-    
-    private let networkingManager: NetworkingManagerImpl!
-    
     private let breedId: String
     
-    var isLoading: Bool {
-        viewState == .loading
-    }
-    
-    var isFetching: Bool {
-        viewState == .fetching
-    }
+    var cacheKey: String { "selected_breed" }
     
     // MARK: - Initializer
-    
-    init(networkingManager: NetworkingManagerImpl = NetworkingManager.shared, breedId: String) {
-        self.networkingManager = networkingManager
+    init(networkingManager: NetworkingManagerImpl = NetworkingManager.shared,
+         cacheManager: CacheManager = .shared,
+         breedId: String) {
         self.breedId = breedId
+        super.init(networkingManager: networkingManager, cacheManager: cacheManager)
+    }
+    
+    // MARK: - Cache Methods
+    func hash(for parameters: [String: Any]) -> String {
+        let page = parameters["page"] as? Int ?? 0
+        let type = parameters["type"] as? String ?? ""
+        return "\(cacheKey)_\(breedId)_\(type)_page_\(page)"
     }
     
     // MARK: - Internal Methods
@@ -50,75 +40,93 @@ final class  SelectedBreedViewModel: ObservableObject {
     internal func fetchSelectedBreedImages() async {
         viewState = .loading
         defer { viewState = .finished }
+        
+        let parameters: [String: Any] = [
+            "page": page,
+            "type": "images"
+        ]
+        
+        if let cachedImages: [BreedImage] = cacheManager.get(for: hash(for: parameters)) {
+            self.selectedBreedImageResponse = SelectedBreedImageResponse(breedImages: cachedImages)
+            self.breedImages = cachedImages
+            return
+        }
+        
         do {
-            let response = try await networkingManager.request(session: .shared,
-                                                               .images(breedIds: self.breedId, page: page),
-                                                               type: [BreedImage].self)
+            let response = try await networkingManager.request(
+                session: .shared,
+                .images(breedIds: self.breedId, page: page),
+                type: [BreedImage].self
+            )
             self.selectedBreedImageResponse = SelectedBreedImageResponse(breedImages: response)
             self.breedImages = self.selectedBreedImageResponse?.breedImages ?? []
+            cacheManager.set(self.breedImages, for: hash(for: parameters))
         } catch {
-            self.hasError = true
-            if let networkingError = error as? NetworkingManager.NetworkingError {
-                self.error = networkingError
-            } else {
-                self.error = .custom(error: error)
-            }
+            handleError(error)
         }
     }
     
-    // MARK: - Internal Methods
     @MainActor
     internal func fetchSelectedBreed() async {
         viewState = .loading
         defer { viewState = .finished }
+        
+        let parameters: [String: Any] = [
+            "type": "breed_details"
+        ]
+        
+        if let cachedBreed: Breed = cacheManager.get(for: hash(for: parameters)) {
+            self.selectedBreed = cachedBreed
+            return
+        }
+        
         do {
-            let response = try await networkingManager.request(session: .shared,
-                                                               .selectedBreed(breedId: self.breedId),
-                                                               type: Breed.self)
+            let response = try await networkingManager.request(
+                session: .shared,
+                .selectedBreed(breedId: self.breedId),
+                type: Breed.self
+            )
             self.selectedBreed = response
-            
+            cacheManager.set(response, for: hash(for: parameters))
         } catch {
-            self.hasError = true
-            if let networkingError = error as? NetworkingManager.NetworkingError {
-                self.error = networkingError
-            } else {
-                self.error = .custom(error: error)
-            }
+            handleError(error)
         }
     }
     
     @MainActor
-       internal func fetchNextSelectedBreedImages() async {
-           viewState = .loading
-           defer { viewState = .finished }
-           page += 1
-           do {
-               let response = try await networkingManager.request(session: .shared,
-                                                                  .images(breedIds: self.breedId, page: page),
-                                                                  type: [BreedImage].self)
-               self.selectedBreedImageResponse = SelectedBreedImageResponse(breedImages: response)
-               self.breedImages += self.selectedBreedImageResponse?.breedImages ?? []
-           } catch {
-               self.hasError = true
-               if let networkingError = error as? NetworkingManager.NetworkingError {
-                   self.error = networkingError
-               } else {
-                   self.error = .custom(error: error)
-               }
-           }
-       }
-      
+    internal func fetchNextSelectedBreedImages() async {
+        viewState = .fetching
+        defer { viewState = .finished }
+        
+        let nextPage = page + 1
+        let parameters: [String: Any] = [
+            "page": nextPage,
+            "type": "images"
+        ]
+        
+        if let cachedImages: [BreedImage] = cacheManager.get(for: hash(for: parameters)) {
+            self.selectedBreedImageResponse = SelectedBreedImageResponse(breedImages: cachedImages)
+            self.breedImages += cachedImages
+            self.page = nextPage
+            return
+        }
+        
+        page += 1
+        do {
+            let response = try await networkingManager.request(
+                session: .shared,
+                .images(breedIds: self.breedId, page: page),
+                type: [BreedImage].self
+            )
+            self.selectedBreedImageResponse = SelectedBreedImageResponse(breedImages: response)
+            self.breedImages += self.selectedBreedImageResponse?.breedImages ?? []
+            cacheManager.set(response, for: hash(for: parameters))
+        } catch {
+            handleError(error)
+        }
+    }
+    
     func hasReachedEnd(of breedImage: BreedImage) -> Bool {
         selectedBreedImageResponse?.breedImages.last?.id == breedImage.id
-       }
-}
-
-
-extension  SelectedBreedViewModel {
-    enum ViewState {
-        case fetching
-        case loading
-        case finished
     }
 }
-
