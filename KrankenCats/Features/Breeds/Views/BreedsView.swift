@@ -28,6 +28,8 @@ struct BreedsView: View {
                                 ForEach(viewModel.breeds, id: \.id) { breed in
                                     NavigationLink {
                                         SelectedBreedView(viewModel: .init(breedId: breed.id))
+                                            .transition(.asymmetric(insertion: .scale, removal: .opacity))
+                                            .animation(.bouncy, value: viewModel.isLoading)
                                     } label: {
                                         SingleBreedView(breed: breed)
                                             .accessibilityIdentifier("item_\(breed.id)")

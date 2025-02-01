@@ -21,7 +21,7 @@ struct SelectedBreedView: View {
                 ProgressView()
             } else {
                 ScrollView {
-                    DetailView(vm: viewModel)
+                    DetailView(viewModel: viewModel)
                     VStack{
                         LazyVGrid(columns: columns,
                                   spacing: 8) {

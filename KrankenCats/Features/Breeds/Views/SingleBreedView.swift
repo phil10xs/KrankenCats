@@ -11,7 +11,6 @@ import SwiftUI
 struct SingleBreedView: View {
     
     let breed: Breed
-   
     
     var body: some View {
         VStack(spacing: .zero) {
@@ -65,6 +64,3 @@ struct SingleBreedView_Previews: PreviewProvider {
             .frame(width: 250)
     }
 }
-
-
-

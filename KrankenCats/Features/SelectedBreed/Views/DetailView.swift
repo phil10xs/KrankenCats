@@ -9,14 +9,14 @@ import SwiftUI
 
 struct DetailView: View {
 
-    @StateObject var vm:  SelectedBreedViewModel
+    @StateObject var viewModel:  SelectedBreedViewModel
    
     
     var body: some View {
         ZStack {
             background
             
-            if vm.isLoading {
+            if viewModel.isLoading {
                 ProgressView()
             } else {
                 ScrollView {
@@ -55,7 +55,7 @@ private extension DetailView {
     @ViewBuilder
     var avatar: some View {
         
-        if let avatarAbsoluteString = vm.selectedBreedImageResponse?.breedImages[0].url,
+        if let avatarAbsoluteString = viewModel.selectedBreedImageResponse?.breedImages[0].url,
            let avatarUrl = URL(string: avatarAbsoluteString) {
             
             AsyncImage(url: avatarUrl) { image in
@@ -76,7 +76,7 @@ private extension DetailView {
     @ViewBuilder
     var link: some View {
         
-        if let supportAbsoluteString = vm.selectedBreed?.cfaURL,
+        if let supportAbsoluteString = viewModel.selectedBreed?.cfaURL,
            let supportUrl = URL(string: supportAbsoluteString)
          {
             HStack{
@@ -126,7 +126,7 @@ private extension DetailView {
                 .weight(.semibold)
             )
         
-        Text(vm.selectedBreed?.name ?? "-")
+        Text(viewModel.selectedBreed?.name ?? "-")
             .font(
                 .system(.subheadline, design: .rounded)
             )
@@ -142,7 +142,7 @@ private extension DetailView {
                 .weight(.semibold)
             )
         
-        Text(vm.selectedBreed?.description ?? "-")
+        Text(viewModel.selectedBreed?.description ?? "-")
             .font(
                 .system(.subheadline, design: .rounded)
             )
@@ -158,7 +158,7 @@ private extension DetailView {
                 .weight(.semibold)
             )
         
-        Text(vm.selectedBreed?.countryCodes ?? "-")
+        Text(viewModel.selectedBreed?.countryCodes ?? "-")
             .font(
                 .system(.subheadline, design: .rounded)
             )
