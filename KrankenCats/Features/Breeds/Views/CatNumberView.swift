@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SingleBreedView: View {
+struct CatNumberView: View {
     
     let breed: Breed
     
@@ -26,7 +26,7 @@ struct SingleBreedView: View {
 
             VStack(alignment: .leading) {
                 
-                CatNumberView(id: Int(breed.id) ?? 0)  
+           
                 
                 Text("\(breed.name) \nWeight:\(breed.weight.metric)")
                     .foregroundColor(Theme.text)
@@ -51,16 +51,6 @@ struct SingleBreedView: View {
     }
 }
 
-struct SingleBreedView_Previews: PreviewProvider {
     
-    static var previewBreed:  Breed {
-    let breeds = try! StaticJSONMapper.decode(file: "breeds", type: [Breed].self);
-    let breedsResponse =  BreedsResponse(breeds: breeds)
-        return breedsResponse.breeds.first!
-    }
     
-    static var previews: some View {
-        SingleBreedView(breed: previewBreed)
-            .frame(width: 250)
-    }
-}
+

@@ -31,7 +31,7 @@ struct BreedsView: View {
                                             .transition(.asymmetric(insertion: .scale, removal: .opacity))
                                             .animation(.bouncy, value: viewModel.isLoading)
                                     } label: {
-                                        SingleBreedView(breed: breed)
+                                        CatNumberView(breed: breed)
                                             .accessibilityIdentifier("item_\(breed.id)")
                                             .task {
                                                 if viewModel.hasReachedEnd(of: breed) && !viewModel.isFetching {

@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import KrankenCats
 
 final class KrankenCatsUITests: XCTestCase {
 
